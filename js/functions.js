@@ -7,19 +7,23 @@ function checkPalindrome(word) {
   let reversedWord = '';
   for (let i = newWord.length - 1; i >= 0; i--) {
     reversedWord += newWord[i];
-    console.log(reversedWord)
   }
   return reversedWord === newWord;
 }
 
 function getNumber(line) {
   let result = '';
-  line = line.replaceAll(' ','');
+  line = line.replaceAll(' ', '');
   for (let i = 0; i < line.length; i++) {
-    let number = Number(line[i]);
+    const number = Number(line[i]);
     if (!isNaN(number)) {
-        result += number < 0 ? -number : number;
+      result += number < 0 ? -number : number;
     }
   }
   return result || NaN;
 }
+
+checkLength('проверяемая строка', 20);
+checkPalindrome('ДовОд');
+getNumber('2023 год');
+
