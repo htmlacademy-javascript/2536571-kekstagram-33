@@ -58,3 +58,4 @@ const createObject = () => ({
 
 const objects = Array.from({ length: PHOTO_COUNTER }, createObject);
 
+objects.forEach();
