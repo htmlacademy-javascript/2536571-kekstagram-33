@@ -39,6 +39,6 @@ const createPhotoData = () => ({
   comments: Array.from({ length: getRandomNumber(0, 30) }, createCommentData),
 });
 
-const objects = () => Array.from({ length: PHOTO_COUNTER }, createPhotoData);
+const photos = () => Array.from({ length: PHOTO_COUNTER }, createPhotoData);
 
-export { objects };
+export { photos };

@@ -1,3 +1,3 @@
-import {objects} from './generate-data';
+import {photos} from './generate-photos';
 
-objects.forEach();// Добавил, чтобы линтер не ругался
+photos.forEach();// Добавил, чтобы линтер не ругался
