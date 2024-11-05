@@ -23,7 +23,19 @@ function getNumber(line) {
   return result || NaN;
 }
 
+
+const getNumberofMinites = function(time){
+  const minutes = time.split(':');
+  return Number(minutes[0]) * 60 + Number(minutes[1]);
+};
+
+function checkDurationMeeting(startWorkTime,endWorkTime,startMeeteng,meetingDuration) {
+  return getNumberofMinites(startMeeteng) + meetingDuration <= getNumberofMinites(endWorkTime) && getNumberofMinites(startMeeteng) + meetingDuration >= getNumberofMinites(startWorkTime);
+}
+
 checkLength('проверяемая строка', 20);
 checkPalindrome('ДовОд');
 getNumber('2023 год');
+checkDurationMeeting('08:00', '17:30', '14:00', 90);
+
 
