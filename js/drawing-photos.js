@@ -1,6 +1,6 @@
 import { photos } from './generate-photos-data.js';
 
-const photosListElement= document.querySelector('.pictures');
+const photosListElement = document.querySelector('.pictures');
 const photoTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 const photoListFragment = document.createDocumentFragment();
