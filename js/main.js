@@ -1,4 +1,3 @@
-import {photos} from './generate-photos-data';
-import './drawing-photos';
+import {generatePhotoByTemplate} from'./drawing-photos';
 
-photos.forEach(); // Чтобы линтер не ругался
+generatePhotoByTemplate();
