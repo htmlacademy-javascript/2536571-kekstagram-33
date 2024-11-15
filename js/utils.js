@@ -1,8 +1,8 @@
 const checkLength = (line, length) => line.length <= length;
 
 const checkPalindrome = (word) => {
-  const newWord = word.toLowerCase().replaceAll(" ", "");
-  let reversedWord = "";
+  const newWord = word.toLowerCase().replaceAll(' ', '');
+  let reversedWord = '';
   for (let i = newWord.length - 1; i >= 0; i--) {
     reversedWord += newWord[i];
   }
@@ -10,8 +10,8 @@ const checkPalindrome = (word) => {
 };
 
 const getNumber = (line) => {
-  let result = "";
-  line = line.replaceAll(" ", "");
+  let result = '';
+  line = line.replaceAll(' ', '');
   for (let i = 0; i < line.length; i++) {
     const number = Number(line[i]);
     if (!isNaN(number)) {
@@ -22,7 +22,7 @@ const getNumber = (line) => {
 };
 
 const getNumberofMinites = (time) => {
-  const minutes = time.split(":");
+  const minutes = time.split(':');
   return Number(minutes[0]) * 60 + Number(minutes[1]);
 };
 
@@ -38,15 +38,15 @@ const checkDurationMeeting = (
     getNumberofMinites(startWorkTime);
 
 const clearPhotoElement = (input, pictureCommentsList) => {
-  input.value = "";
-  pictureCommentsList.innerHTML = "";
+  input.value = '';
+  pictureCommentsList.innerHTML = '';
 };
 
-const isEscapeKey = (evt) => evt.key === "Escape";
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-checkLength("проверяемая строка", 20);
-checkPalindrome("ДовОд");
-getNumber("2023 год");
-checkDurationMeeting("08:00", "17:30", "14:00", 90);
+checkLength('проверяемая строка', 20);
+checkPalindrome('ДовОд');
+getNumber('2023 год');
+checkDurationMeeting('08:00', '17:30', '14:00', 90);
 
 export { clearPhotoElement, isEscapeKey };
