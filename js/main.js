@@ -1,3 +1,5 @@
-import {generatePhotoByTemplate} from'./drawing-photos';
+import {generatePhotoByTemplate} from'./render-mini-photos';
+import './render-fullscreen-photo';
 
 generatePhotoByTemplate();
+
