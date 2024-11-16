@@ -1,21 +1,24 @@
 import { clearPhotoElement, isEscapeKey } from './utils';
 
 const fullscreenPictureSection = document.querySelector('.big-picture');
-const fullscreenPictureElement = document.querySelector(
+const fullscreenPictureElement = fullscreenPictureSection.querySelector(
   '.big-picture__img img'
 );
+const commentsCountElements = document.querySelector('.social__comment-count');
 const pictureLikesCountElement = document.querySelector('.likes-count');
-const pictureCommentCountElement = document.querySelector(
+const pictureCommentCountElement = commentsCountElements.querySelector(
   '.social__comment-total-count'
 );
 const pictureCommentsListElement = document.querySelector('.social__comments');
 const pictureDescriptionElement = document.querySelector('.social__caption');
-const commentsCountElements = document.querySelector('.social__comment-count');
 const commentsLoaderElements = document.querySelector('.comments-loader');
 const inputElement = document.querySelector('.social__footer-text');
-const buttonCloseElement = document.querySelector('.big-picture__cancel');
+const buttonCloseElement = fullscreenPictureSection.querySelector(
+  '.big-picture__cancel'
+);
 const photoCommentFragment = document.createDocumentFragment();
-const commentTemplate = document.querySelector('.social__comment');
+const commentTemplate =
+  pictureCommentsListElement.querySelector('.social__comment');
 
 const onEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -58,16 +61,16 @@ const drawComments = (comments) => {
   pictureCommentsListElement.appendChild(photoCommentFragment);
 };
 
-const drawFullscreenPicture = ({ url, likes, comments, description }) => {
+const drawFullScreenPicture = ({ url, likes, comments, description }) => {
   clearPhotoElement(inputElement, pictureCommentsListElement);
   drawBigPicture({ url, likes, comments, description });
   openFullscreenPhoto();
   drawComments(comments);
 };
 
-const closeFullscreenPhotoButton = () =>
+const closeFullScreenPhotoButton = () =>
   buttonCloseElement.addEventListener('click', () => {
     closeFullscreenPhoto();
   });
 
-export { drawFullscreenPicture, closeFullscreenPhotoButton };
+export { drawFullScreenPicture, closeFullScreenPhotoButton };
