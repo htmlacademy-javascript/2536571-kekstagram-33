@@ -1,7 +1,6 @@
 import { photos } from './generate-photos-data.js';
 import {
   drawFullScreenPicture,
-  closeFullScreenPhotoButton,
 } from './render-fullscreen-photo.js';
 
 const photosListElement = document.querySelector('.pictures');
@@ -23,7 +22,6 @@ const generatePhotoByTemplate = () => {
     photoListFragment.append(photoElement);
     photoElement.addEventListener('click', () => {
       drawFullScreenPicture({ url, likes, comments, description });
-      closeFullScreenPhotoButton();
     });
   });
   photosListElement.appendChild(photoListFragment);
