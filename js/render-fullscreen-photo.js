@@ -1,50 +1,38 @@
 import { clearPhotoElement, isEscapeKey } from './utils';
 
-const fullscreenPictureSection = document.querySelector('.big-picture');
-const fullscreenPictureElement = fullscreenPictureSection.querySelector(
-  '.big-picture__img img'
-);
-const commentsCountElements = document.querySelector('.social__comment-count');
-const pictureLikesCountElement = document.querySelector('.likes-count');
-const pictureCommentCountElement = commentsCountElements.querySelector(
-  '.social__comment-total-count'
-);
-const pictureCommentsListElement = document.querySelector('.social__comments');
-const pictureDescriptionElement = document.querySelector('.social__caption');
-const commentsLoaderElements = document.querySelector('.comments-loader');
-const inputElement = document.querySelector('.social__footer-text');
-const buttonCloseElement = fullscreenPictureSection.querySelector(
-  '.big-picture__cancel'
-);
+const fullScreenPictureSection = document.querySelector('.big-picture');
+const fullScreenPictureElement = fullScreenPictureSection.querySelector('.big-picture__img img');
+const commentsCountElements = fullScreenPictureSection.querySelector('.social__comment-count');
+const pictureLikesCountElement = fullScreenPictureSection.querySelector('.likes-count');
+const pictureCommentCountElement = commentsCountElements.querySelector('.social__comment-total-count');
+const pictureShownCommentsElement = commentsCountElements.querySelector('.social__comment-shown-count');
+const pictureCommentsListElement = fullScreenPictureSection.querySelector('.social__comments');
+const pictureDescriptionElement = fullScreenPictureSection.querySelector('.social__caption');
+const commentsLoaderElements = fullScreenPictureSection.querySelector('.comments-loader');
+const inputElement = fullScreenPictureSection.querySelector('.social__footer-text');
+const buttonCloseElement = fullScreenPictureSection.querySelector('.big-picture__cancel');
+const commentTemplate = fullScreenPictureSection.querySelector('.social__comment');
 const photoCommentFragment = document.createDocumentFragment();
-const commentTemplate =
-  pictureCommentsListElement.querySelector('.social__comment');
 
-const onEscKeydown = (evt) => {
+function onEscKeydown(evt) {
+  buttonCloseElement.removeEventListener('click', closeFullScreenPhoto);
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeFullscreenPhoto();
+    closeFullScreenPhoto();
   }
-};
+}
 
-const closeFullscreenPhoto = () => {
-  fullscreenPictureSection.classList.add('hidden');
-  commentsCountElements.classList.remove('hidden');
-  commentsLoaderElements.classList.remove('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeydown);
-};
-
-const openFullscreenPhoto = () => {
-  fullscreenPictureSection.classList.remove('hidden');
-  commentsCountElements.classList.add('hidden');
+const openFullScreenPhoto = () => {
+  fullScreenPictureSection.classList.remove('hidden');
   commentsLoaderElements.classList.add('hidden');
+  commentsCountElements.classList.add('hidden');
   document.body.classList.add('modal-open');
+
   document.addEventListener('keydown', onEscKeydown);
 };
 
 const drawBigPicture = ({ url, likes, comments, description }) => {
-  fullscreenPictureElement.src = url;
+  fullScreenPictureElement.src = url;
   pictureLikesCountElement.textContent = likes;
   pictureCommentCountElement.textContent = String(comments.length);
   pictureDescriptionElement.textContent = description;
@@ -59,18 +47,24 @@ const drawComments = (comments) => {
     photoCommentFragment.append(commentElement);
   });
   pictureCommentsListElement.appendChild(photoCommentFragment);
+  pictureShownCommentsElement.textContent = pictureCommentsListElement.children.length;
 };
+
+function closeFullScreenPhoto() {
+  fullScreenPictureSection.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscKeydown);
+}
+
+buttonCloseElement.addEventListener('click', () => {
+  closeFullScreenPhoto();
+});
 
 const drawFullScreenPicture = ({ url, likes, comments, description }) => {
   clearPhotoElement(inputElement, pictureCommentsListElement);
   drawBigPicture({ url, likes, comments, description });
-  openFullscreenPhoto();
+  openFullScreenPhoto();
   drawComments(comments);
 };
 
-const closeFullScreenPhotoButton = () =>
-  buttonCloseElement.addEventListener('click', () => {
-    closeFullscreenPhoto();
-  });
-
-export { drawFullScreenPicture, closeFullScreenPhotoButton };
+export { drawFullScreenPicture };
