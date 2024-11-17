@@ -26,7 +26,7 @@ const getRandomNumber = (min, max, arrayFindDubl) => {
 
 const createCommentData = () => ({
   id: getRandomNumber(1, 1000, objIds),
-  avatar: `img/avatar-${getRandomNumber(1, 6)}.svg.`,
+  avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
   message: MESSAGES[getRandomNumber(0, MESSAGES.length - 1)],
   name: NAMES[getRandomNumber(0, NAMES.length - 1)],
 });
