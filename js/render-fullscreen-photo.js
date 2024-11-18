@@ -14,6 +14,7 @@ const buttonCloseElement = fullScreenPictureSection.querySelector('.big-picture_
 const commentTemplate = fullScreenPictureSection.querySelector('.social__comment');
 const photoCommentFragment = document.createDocumentFragment();
 
+let photoComments = []
 function onEscKeydown(evt) {
   buttonCloseElement.removeEventListener('click', closeFullScreenPhoto);
   if (isEscapeKey(evt)) {
@@ -24,14 +25,12 @@ function onEscKeydown(evt) {
 
 const openFullScreenPhoto = () => {
   fullScreenPictureSection.classList.remove('hidden');
-  commentsLoaderElements.classList.add('hidden');
-  commentsCountElements.classList.add('hidden');
   document.body.classList.add('modal-open');
-
   document.addEventListener('keydown', onEscKeydown);
 };
 
 const drawBigPicture = ({ url, likes, comments, description }) => {
+  clearPhotoElement(inputElement, pictureCommentsListElement);
   fullScreenPictureElement.src = url;
   pictureLikesCountElement.textContent = likes;
   pictureCommentCountElement.textContent = String(comments.length);
@@ -56,15 +55,39 @@ function closeFullScreenPhoto() {
   document.removeEventListener('keydown', onEscKeydown);
 }
 
+
+function drawMoreComments(comments){
+  if(!comments.length || comments.length == pictureCommentsListElement.children.length){
+    return
+  }
+  if(pictureCommentsListElement.children.length + 5 < comments.length){
+    drawComments(comments.slice(pictureCommentsListElement.children.length,
+      pictureCommentsListElement.children.length + 5));
+  }
+  else{
+    drawComments(comments.slice(pictureCommentsListElement.children.length,
+      comments.length));
+  }
+  if(pictureCommentsListElement.children.length == comments.length){
+    commentsLoaderElements.classList.add("hidden");
+  }
+  else{
+    commentsLoaderElements.classList.remove("hidden");
+  }
+}
+
 buttonCloseElement.addEventListener('click', () => {
   closeFullScreenPhoto();
 });
 
+commentsLoaderElements.addEventListener('click', () =>
+  drawMoreComments(photoComments));
+
 const drawFullScreenPicture = ({ url, likes, comments, description }) => {
-  clearPhotoElement(inputElement, pictureCommentsListElement);
   drawBigPicture({ url, likes, comments, description });
   openFullScreenPhoto();
-  drawComments(comments);
+  drawMoreComments(comments);
+  photoComments =  comments;
 };
 
 export { drawFullScreenPicture };
