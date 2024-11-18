@@ -75,6 +75,7 @@ function drawMoreComments(comments){
   }
 }
 
+
 buttonCloseElement.addEventListener('click', () => {
   closeFullScreenPhoto();
 });
