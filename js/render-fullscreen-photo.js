@@ -14,7 +14,8 @@ const buttonCloseElement = fullScreenPictureSection.querySelector('.big-picture_
 const commentTemplate = fullScreenPictureSection.querySelector('.social__comment');
 const photoCommentFragment = document.createDocumentFragment();
 
-let photoComments = []
+let photoComments = [];
+
 function onEscKeydown(evt) {
   buttonCloseElement.removeEventListener('click', closeFullScreenPhoto);
   if (isEscapeKey(evt)) {
@@ -57,22 +58,20 @@ function closeFullScreenPhoto() {
 
 
 function drawMoreComments(comments){
-  if(!comments.length || comments.length == pictureCommentsListElement.children.length){
-    return
+  if(!comments.length || comments.length === pictureCommentsListElement.children.length){
+    return;
   }
   if(pictureCommentsListElement.children.length + 5 < comments.length){
     drawComments(comments.slice(pictureCommentsListElement.children.length,
       pictureCommentsListElement.children.length + 5));
-  }
-  else{
+  } else{
     drawComments(comments.slice(pictureCommentsListElement.children.length,
       comments.length));
   }
-  if(pictureCommentsListElement.children.length == comments.length){
-    commentsLoaderElements.classList.add("hidden");
-  }
-  else{
-    commentsLoaderElements.classList.remove("hidden");
+  if(pictureCommentsListElement.children.length === comments.length) {
+    commentsLoaderElements.classList.add('hidden');
+  } else{
+    commentsLoaderElements.classList.remove('hidden');
   }
 }
 
@@ -87,7 +86,7 @@ const drawFullScreenPicture = ({ url, likes, comments, description }) => {
   drawBigPicture({ url, likes, comments, description });
   openFullScreenPhoto();
   drawMoreComments(comments);
-  photoComments =  comments;
+  photoComments = comments;
 };
 
 export { drawFullScreenPicture };
