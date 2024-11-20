@@ -1,5 +1,7 @@
 import { clearPhotoElement, isEscapeKey } from './utils';
 
+const NEW_PHOTO_COUNTER = 5;
+
 const fullScreenPictureSection = document.querySelector('.big-picture');
 const fullScreenPictureElement = fullScreenPictureSection.querySelector('.big-picture__img img');
 const commentsCountElements = fullScreenPictureSection.querySelector('.social__comment-count');
@@ -58,12 +60,12 @@ function closeFullScreenPhoto() {
 
 
 function drawMoreComments(comments){
-  if(!comments.length || comments.length === pictureCommentsListElement.children.length){
+  if(!comments.length){
     return;
   }
-  if(pictureCommentsListElement.children.length + 5 < comments.length){
+  if(pictureCommentsListElement.children.length + NEW_PHOTO_COUNTER < comments.length){
     drawComments(comments.slice(pictureCommentsListElement.children.length,
-      pictureCommentsListElement.children.length + 5));
+      pictureCommentsListElement.children.length + NEW_PHOTO_COUNTER));
   } else{
     drawComments(comments.slice(pictureCommentsListElement.children.length,
       comments.length));
@@ -86,8 +88,10 @@ commentsLoaderElements.addEventListener('click', () =>
 const drawFullScreenPicture = ({ url, likes, comments, description }) => {
   drawBigPicture({ url, likes, comments, description });
   openFullScreenPhoto();
-  drawMoreComments(comments);
   photoComments = comments;
+  if(photoComments){
+    drawMoreComments(photoComments);
+  }
 };
 
 export { drawFullScreenPicture };

@@ -18,7 +18,7 @@ const generatePhotoByTemplate = () => {
     photoElement.querySelector('.picture__img').src = url;
     photoElement.querySelector('.picture__img').alt = description;
     photoElement.querySelector('.picture__likes').textContent = likes;
-    photoElement.querySelector('.picture__comments').alt = comments.length;
+    photoElement.querySelector('.picture__comments').textContent = comments.length;
     photoListFragment.append(photoElement);
     photoElement.addEventListener('click', () => {
       drawFullScreenPicture({ url, likes, comments, description });
