@@ -42,6 +42,10 @@ const clearPhotoElement = (input, pictureCommentsList) => {
   pictureCommentsList.innerHTML = '';
 };
 
+const clearInputElement = (input) => {
+  input.value = '';
+};
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 checkLength('проверяемая строка', 20);
@@ -49,4 +53,4 @@ checkPalindrome('ДовОд');
 getNumber('2023 год');
 checkDurationMeeting('08:00', '17:30', '14:00', 90);
 
-export { clearPhotoElement, isEscapeKey };
+export { clearPhotoElement, isEscapeKey ,clearInputElement};
