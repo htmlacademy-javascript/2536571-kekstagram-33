@@ -1,41 +1,60 @@
-const scaleSmallerButtonElement = document.querySelector('.scale__control--smaller');
-const scaleBiggerButtonElement = document.querySelector('.scale__control--bigger');
-const percentageScaleValueElement = document.querySelector('.scale__control--value');
-const imgPreveiwElement = document.querySelector('.img-upload__preview');
+const MAX_SCALING_VALUE = 100;
+const MIN_SCALING_VALUE = 25;
+const SCALING_STEP = 25;
+const scaleSmallerButtonElement = document.querySelector(
+  '.scale__control--smaller'
+);
+const scaleBiggerButtonElement = document.querySelector(
+  '.scale__control--bigger'
+);
+const percentageScaleValueElement = document.querySelector(
+  '.scale__control--value'
+);
+const imgPreveiwElement = document.querySelector('.img-upload__preview img');
 
-
-function scaleBigger(){
-  const percentageScale = Number(percentageScaleValueElement.value.split('%')[0]);
-  if(percentageScale === 100){
-    return;
-  }
-  const percentageScaleValue = Number(percentageScaleValueElement.value.split('%')[0]) + 25;
-  const percentageValue = percentageScaleValue / 100;
-  imgPreveiwElement.style.transform = `scale(${percentageValue})`;
-  percentageScaleValueElement.value = `${percentageScaleValue}%` ;
+function transformPhoto(percentageScaleValue) {
+  const newPercentageValue = percentageScaleValue / 100;
+  imgPreveiwElement.style.transform = `scale(${newPercentageValue})`;
+  percentageScaleValueElement.value = `${percentageScaleValue}%`;
 }
 
-function scaleSmaller(){
-  const percentageScale = Number(percentageScaleValueElement.value.split('%')[0]);
-  if(percentageScale === 25){
-    return;
+function getPhotoScalingValue(boundarValue) {
+  const percentageScaleValue = Number(
+    percentageScaleValueElement.value.split('%')[0]
+  );
+  if (percentageScaleValue === boundarValue) {
+    return undefined;
   }
-  const percentageScaleValue = Number(percentageScaleValueElement.value.split('%')[0]) - 25;
-  imgPreveiwElement.style.transform = `scale(0.${percentageScaleValue})`;
-  percentageScaleValueElement.value = `${percentageScaleValue}%` ;
+  return percentageScaleValue;
 }
 
-const scaleBiggerHandler = ()=>{
+function scaleBigger() {
+  let scaleValue = getPhotoScalingValue(MAX_SCALING_VALUE);
+  if (scaleValue) {
+    scaleValue += SCALING_STEP;
+    transformPhoto(scaleValue);
+  }
+}
+
+function scaleSmaller() {
+  let scaleValue = getPhotoScalingValue(MIN_SCALING_VALUE);
+  if (scaleValue) {
+    scaleValue -= SCALING_STEP;
+    transformPhoto(scaleValue);
+  }
+}
+
+function scaleImageHandler() {
   scaleBiggerButtonElement.addEventListener('click', scaleBigger);
-};
-
-const scaleSmallerHandler = ()=>{
-  scaleSmallerButtonElement.addEventListener('click',scaleSmaller);
-};
-
-function scaleImageHandler(){
-  scaleBiggerHandler();
-  scaleSmallerHandler();
+  scaleSmallerButtonElement.addEventListener('click', scaleSmaller);
 }
 
-export {scaleImageHandler};
+function removeScaleImageHandler() {
+  scaleBiggerButtonElement.removeEventListener('click', scaleBigger);
+  scaleSmallerButtonElement.removeEventListener('click', scaleSmaller);
+}
+
+function resetScalingSettings() {
+  transformPhoto(100);
+}
+export { scaleImageHandler, removeScaleImageHandler,resetScalingSettings };
