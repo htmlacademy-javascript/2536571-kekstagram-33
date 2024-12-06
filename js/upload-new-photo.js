@@ -3,10 +3,9 @@ import { scaleImageHandler,removeScaleImageHandler,resetScalingSettings } from '
 import {
   addHandlerSubmitForm,
   removeHandlerSubmitForm,
-  resetForm,
 } from './validate-text-image.js';
 import {changeFilterHandler,removeFilterHandler ,resetFilterSettings} from './photo-filtering.js';
-import {resetFormData} from './messages.js'
+import {resetFormData} from './messages.js';
 
 const imgUploadFormElement = document.querySelector('.img-upload__form');
 const imgUploadInputElement =
@@ -75,4 +74,4 @@ const openUploadPhoto = () => {
 imgUploadCancelButton.addEventListener('click', () => closeUploadPhoto());
 imgUploadInputElement.addEventListener('change', () => openUploadPhoto());
 
-export {removeEscKeydownHandler,addEscKeydownHandler}
+export {removeEscKeydownHandler,addEscKeydownHandler};

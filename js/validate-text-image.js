@@ -1,5 +1,5 @@
 import {postData} from './api.js';
-import {addSuccesMessage,addErrorMessage} from './messages.js'
+import {addSuccesMessage,addErrorMessage} from './messages.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const MAX_HASHTAG_LENGTH = 5;
@@ -80,7 +80,7 @@ const addComentValidator = () => {
 
 const submitForm = (e) => {
   e.preventDefault();
-  let formInfo = new FormData(e.target);
+  const formInfo = new FormData(e.target);
   if (pristine.validate()) {
     postData(addSuccesMessage,addErrorMessage,formInfo);
   }

@@ -1,4 +1,3 @@
-import { photos } from './generate-photos-data.js';
 import {
   drawFullScreenPicture,
 } from './render-fullscreen-photo.js';
@@ -9,8 +8,6 @@ const photoTemplateElement = document
   .content.querySelector('.picture');
 
 const photoListFragment = document.createDocumentFragment();
-
-const photosData = photos();
 
 const generatePhotoByTemplate = (photosData) => {
   photosData.forEach(({ url, description, likes, comments }) => {
