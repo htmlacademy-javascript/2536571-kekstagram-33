@@ -12,7 +12,7 @@ const photoListFragment = document.createDocumentFragment();
 
 const photosData = photos();
 
-const generatePhotoByTemplate = () => {
+const generatePhotoByTemplate = (photosData) => {
   photosData.forEach(({ url, description, likes, comments }) => {
     const photoElement = photoTemplateElement.cloneNode(true);
     photoElement.querySelector('.picture__img').src = url;

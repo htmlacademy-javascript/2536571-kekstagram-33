@@ -6,6 +6,7 @@ import {
   resetForm,
 } from './validate-text-image.js';
 import {changeFilterHandler,removeFilterHandler ,resetFilterSettings} from './photo-filtering.js';
+import {resetFormData} from './messages.js'
 
 const imgUploadFormElement = document.querySelector('.img-upload__form');
 const imgUploadInputElement =
@@ -36,9 +37,12 @@ function closeUploadPhoto() {
   removeHandlerSubmitForm();
   removeScaleImageHandler();
   removeFilterHandler();
-  resetForm();
+  resetFormData();
   document.removeEventListener('keydown', onEscKeydown);
 }
+
+const removeEscKeydownHandler = ()=>document.removeEventListener('keydown', onEscKeydown);
+const addEscKeydownHandler = ()=>document.addEventListener('keydown', onEscKeydown);
 
 const stopCloseEvent = (event) => {
   if (isEscapeKey(event)) {
@@ -70,3 +74,5 @@ const openUploadPhoto = () => {
 
 imgUploadCancelButton.addEventListener('click', () => closeUploadPhoto());
 imgUploadInputElement.addEventListener('change', () => openUploadPhoto());
+
+export {removeEscKeydownHandler,addEscKeydownHandler}
