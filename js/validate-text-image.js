@@ -1,3 +1,6 @@
+import {postData} from './api.js';
+import {addSuccessMessage,addErrorMessage} from './messages.js';
+
 const COMMENT_MAX_LENGTH = 140;
 const MAX_HASHTAG_LENGTH = 5;
 const HASHTAG_ERROR = 'Неверный формат данных';
@@ -77,8 +80,9 @@ const addComentValidator = () => {
 
 const submitForm = (e) => {
   e.preventDefault();
+  const formInfo = new FormData(e.target);
   if (pristine.validate()) {
-    imgUploadFormElement.submit();
+    postData(addSuccessMessage,addErrorMessage,formInfo);
   }
 };
 

@@ -1,4 +1,3 @@
-import { photos } from './generate-photos-data.js';
 import {
   drawFullScreenPicture,
 } from './render-fullscreen-photo.js';
@@ -8,11 +7,10 @@ const photoTemplateElement = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
+const photoFilters = document.querySelector('.img-filters');
 const photoListFragment = document.createDocumentFragment();
 
-const photosData = photos();
-
-const generatePhotoByTemplate = () => {
+const generatePhotoByTemplate = (photosData) => {
   photosData.forEach(({ url, description, likes, comments }) => {
     const photoElement = photoTemplateElement.cloneNode(true);
     photoElement.querySelector('.picture__img').src = url;
@@ -27,4 +25,5 @@ const generatePhotoByTemplate = () => {
   photosListElement.appendChild(photoListFragment);
 };
 
-export { generatePhotoByTemplate };
+const showFilters = ()=> photoFilters.classList.remove('img-filters--inactive');
+export { generatePhotoByTemplate,showFilters };

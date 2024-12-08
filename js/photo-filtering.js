@@ -72,7 +72,7 @@ const updateSlider = (activeEffect) => {
 const changePhotoEffect = (activeEffect, value, filter) => {
   if (activeEffect.value === 'none') {
     imgUploadEffectElement.classList.add('hidden');
-    imgUploadElement.style.filter = ' ';
+    imgUploadElement.style.filter = '';
   } else {
     imgUploadEffectElement.classList.remove('hidden');
     imgUploadElement.style.filter = filter;
@@ -134,6 +134,7 @@ const removeFilterHandler = () => {
 };
 
 const resetFilterSettings = () =>{
+  defaultEffectElement.checked = true;
   addNewEffect(defaultEffectElement,0);
 };
 
