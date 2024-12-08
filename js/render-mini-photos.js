@@ -7,6 +7,7 @@ const photoTemplateElement = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
+const photoFilters = document.querySelector('.img-filters');
 const photoListFragment = document.createDocumentFragment();
 
 const generatePhotoByTemplate = (photosData) => {
@@ -24,4 +25,5 @@ const generatePhotoByTemplate = (photosData) => {
   photosListElement.appendChild(photoListFragment);
 };
 
-export { generatePhotoByTemplate };
+const showFilters = ()=> photoFilters.classList.remove('img-filters--inactive')
+export { generatePhotoByTemplate,showFilters };

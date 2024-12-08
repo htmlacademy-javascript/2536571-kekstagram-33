@@ -1,4 +1,4 @@
-import { resetFile, isEscapeKey } from './utils';
+import { resetFile, isEscapeKey,resetImg } from './utils';
 import { resetForm } from './validate-text-image';
 import { resetScalingSettings } from './photo-scaling';
 import { resetFilterSettings } from './photo-filtering';
@@ -24,36 +24,36 @@ const errorMessageGet = () => {
   setTimeout(() => newErrorMessage.remove(), 5000);
 };
 
-function closeSuccesMessage(succesMessage) {
+function closeSuccesMessage(successMessage) {
   document.removeEventListener('keydown', onEscKeydownSucces);
-  succesMessage.remove();
+  successMessage.remove();
   addEscKeydownHandler();
 }
 
 function onEscKeydownSucces (e) {
-  const succesMessage = document.querySelector('.success');
+  const successMessage = document.querySelector('.success');
   if (isEscapeKey(e)) {
-    closeSuccesMessage(succesMessage);
+    closeSuccesMessage(successMessage);
   }
 }
 
-const succesMessageHandler = (succesMessage) => {
-  succesMessage
+const succesMessageHandler = (successMessage) => {
+  successMessage
     .querySelector('.success__button')
-    .addEventListener('click', () => closeSuccesMessage(succesMessage));
-  succesMessage.addEventListener('click', (e) => {
+    .addEventListener('click', () => closeSuccesMessage(successMessage));
+  successMessage.addEventListener('click', (e) => {
     if (e.target.className !== 'success__inner') {
-      closeSuccesMessage(succesMessage);
+      closeSuccesMessage(successMessage);
     }
   });
   document.addEventListener('keydown', onEscKeydownSucces);
   removeEscKeydownHandler();
 };
 
-const succesMessagePost = () => {
-  const succesMessage = succesMessageElement.cloneNode(true);
-  document.body.append(succesMessage);
-  succesMessageHandler(succesMessage);
+const successMessagePost = () => {
+  const successMessage = succesMessageElement.cloneNode(true);
+  document.body.append(successMessage);
+  succesMessageHandler(successMessage);
 };
 
 const errorMessagePost = () => {
@@ -61,6 +61,13 @@ const errorMessagePost = () => {
   document.body.append(errorMessage);
   errorMessageHandler(errorMessage);
 };
+
+function onEscKeydownError (e) {
+  const errorMessage = document.querySelector('.error');
+  if (isEscapeKey(e)) {
+    closeErrorMessage(errorMessage);
+  }
+}
 
 const closeErrorMessage = (error) => {
   error.remove();
@@ -81,26 +88,19 @@ function errorMessageHandler (errorMessage) {
   removeEscKeydownHandler();
 }
 
-function onEscKeydownError (e) {
-  const errorMessage = document.querySelector('.error');
-  if (isEscapeKey(e)) {
-    closeSuccesMessage(errorMessage);
-  }
-}
-
-
 const resetFormData = () => {
+  resetImg();
   resetForm();
   resetFile();
   resetScalingSettings();
   resetFilterSettings();
 };
 
-const addSuccesMessage = () => {
+const addSuccessMessage = () => {
   resetFormData();
-  succesMessagePost();
+  successMessagePost();
 };
 
 const addErrorMessage = () => errorMessagePost();
 
-export { addSuccesMessage,addErrorMessage, errorMessageGet,resetFormData };
+export { addSuccessMessage,addErrorMessage, errorMessageGet,resetFormData };

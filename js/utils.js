@@ -1,5 +1,8 @@
+const RERENDER_DELAY = 500;
+
 const checkLength = (line, length) => line.length <= length;
 const fileLoader = document.querySelector('.img-upload__input');
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 const checkPalindrome = (word) => {
   const newWord = word.toLowerCase().replaceAll(' ', '');
@@ -50,10 +53,32 @@ const clearInputElement = (input) => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const resetFile = ()=>fileLoader.setAttribute('value',null);
+const resetImg = () =>imgUploadPreview.setAttribute('src',' ')
+
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), RERENDER_DELAY);
+  };
+}
+
+function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
+
 
 checkLength('проверяемая строка', 20);
 checkPalindrome('ДовОд');
 getNumber('2023 год');
 checkDurationMeeting('08:00', '17:30', '14:00', 90);
 
-export { clearPhotoElement, isEscapeKey ,clearInputElement,resetFile};
+export { clearPhotoElement, isEscapeKey ,clearInputElement,resetFile,debounce,throttle,resetImg};

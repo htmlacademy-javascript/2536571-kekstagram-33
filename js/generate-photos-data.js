@@ -41,4 +41,4 @@ const createPhotoData = () => ({
 
 const photos = () => Array.from({ length: PHOTO_COUNTER }, createPhotoData);
 
-export { photos };
+export { photos,getRandomNumber };
