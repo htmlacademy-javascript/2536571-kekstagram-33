@@ -71,7 +71,7 @@ const uploadNewPhoto = () =>{
   if(matches){
     imgUploadPreview.src = URL.createObjectURL(file);
   }
-}
+};
 
 const openUploadPhoto = () => {
   uploadNewPhoto();

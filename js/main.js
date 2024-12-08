@@ -1,7 +1,7 @@
 import {generatePhotoByTemplate,showFilters} from './render-mini-photos';
 import {errorMessageGet} from './messages';
 import { getData } from './api';
-import {filterPhotoByDefault,filterPhotoByRandom,filterPhotoByLikes } from './filters-posts'
+import {filterPhotoByDefault } from './filters-posts';
 
 const photosData = await getData(errorMessageGet);
 if (photosData){
@@ -10,4 +10,4 @@ if (photosData){
   filterPhotoByDefault(photosData);
 }
 
-export{photosData}
+export{photosData};

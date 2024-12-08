@@ -62,18 +62,18 @@ const errorMessagePost = () => {
   errorMessageHandler(errorMessage);
 };
 
+const closeErrorMessage = (error) => {
+  error.remove();
+  addEscKeydownHandler();
+  document.removeEventListener('keydown',onEscKeydownError);
+};
+
 function onEscKeydownError (e) {
   const errorMessage = document.querySelector('.error');
   if (isEscapeKey(e)) {
     closeErrorMessage(errorMessage);
   }
 }
-
-const closeErrorMessage = (error) => {
-  error.remove();
-  addEscKeydownHandler();
-  document.removeEventListener('keydown',onEscKeydownError);
-};
 
 function errorMessageHandler (errorMessage) {
   errorMessage

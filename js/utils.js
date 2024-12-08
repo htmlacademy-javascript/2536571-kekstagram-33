@@ -53,9 +53,9 @@ const clearInputElement = (input) => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const resetFile = ()=>fileLoader.setAttribute('value',null);
-const resetImg = () =>imgUploadPreview.setAttribute('src',' ')
+const resetImg = () =>imgUploadPreview.setAttribute('src',' ');
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);

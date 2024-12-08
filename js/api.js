@@ -1,24 +1,23 @@
-const BASE_URL = "https://32.javascript.htmlacademy.pro/kekstagram";
+const BASE_URL = 'https://32.javascript.htmlacademy.pro/kekstagram';
 const ROUTE = {
-  GET_DATA: "/data",
-  SEND_DATA: "/",
+  GET_DATA: '/data',
+  SEND_DATA: '/',
 };
 
 const Method = {
-  GET: "GET",
-  POST: "POST",
+  GET: 'GET',
+  POST: 'POST',
 };
 
 const load = async (route,errorMessage,method = Method.GET, body = null) => {
   try {
-    let response = await fetch(`${BASE_URL}${route}`, { method, body })
+    const response = await fetch(`${BASE_URL}${route}`, { method, body });
     if (response.ok) {
-        return await response.json();
+      return await response.json();
     }
-  }
-  catch(e){
+  } catch(e){
     errorMessage();
-  };
+  }
 };
 
 const getData = async (errorMessage) => await load(ROUTE.GET_DATA,errorMessage);

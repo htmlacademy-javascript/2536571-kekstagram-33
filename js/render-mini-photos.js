@@ -25,5 +25,5 @@ const generatePhotoByTemplate = (photosData) => {
   photosListElement.appendChild(photoListFragment);
 };
 
-const showFilters = ()=> photoFilters.classList.remove('img-filters--inactive')
+const showFilters = ()=> photoFilters.classList.remove('img-filters--inactive');
 export { generatePhotoByTemplate,showFilters };
