@@ -3,9 +3,11 @@ import { scaleImageHandler,removeScaleImageHandler,resetScalingSettings } from '
 import {
   addHandlerSubmitForm,
   removeHandlerSubmitForm,
-  resetForm,
 } from './validate-text-image.js';
 import {changeFilterHandler,removeFilterHandler ,resetFilterSettings} from './photo-filtering.js';
+import {resetFormData} from './messages.js';
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const imgUploadFormElement = document.querySelector('.img-upload__form');
 const imgUploadInputElement =
@@ -16,6 +18,7 @@ const imgUploadOverlayElement = imgUploadFormElement.querySelector(
 const imgUploadCancelButton = imgUploadFormElement.querySelector(
   '.img-upload__cancel'
 );
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const imgUploadHashtagElement =
   imgUploadFormElement.querySelector('.text__hashtags');
 const imgUploadCommentElement =
@@ -36,9 +39,12 @@ function closeUploadPhoto() {
   removeHandlerSubmitForm();
   removeScaleImageHandler();
   removeFilterHandler();
-  resetForm();
+  resetFormData();
   document.removeEventListener('keydown', onEscKeydown);
 }
+
+const removeEscKeydownHandler = ()=>document.removeEventListener('keydown', onEscKeydown);
+const addEscKeydownHandler = ()=>document.addEventListener('keydown', onEscKeydown);
 
 const stopCloseEvent = (event) => {
   if (isEscapeKey(event)) {
@@ -57,7 +63,18 @@ const removeHashTagEscKeydownHandler = () => {
 removeCommentEscKeydownHandler();
 removeHashTagEscKeydownHandler();
 
+const uploadNewPhoto = () =>{
+  const file = imgUploadInputElement.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if(matches){
+    imgUploadPreview.src = URL.createObjectURL(file);
+  }
+};
+
 const openUploadPhoto = () => {
+  uploadNewPhoto();
   imgUploadOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeydown);
@@ -70,3 +87,5 @@ const openUploadPhoto = () => {
 
 imgUploadCancelButton.addEventListener('click', () => closeUploadPhoto());
 imgUploadInputElement.addEventListener('change', () => openUploadPhoto());
+
+export {removeEscKeydownHandler,addEscKeydownHandler};

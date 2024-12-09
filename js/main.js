@@ -1,4 +1,13 @@
-import {generatePhotoByTemplate} from'./render-mini-photos';
+import {generatePhotoByTemplate,showFilters} from './render-mini-photos';
+import {errorMessageGet} from './messages';
+import { getData } from './api';
+import {filterPhotoByDefault } from './filters-posts';
 
-generatePhotoByTemplate();
+const photosData = await getData(errorMessageGet);
+if (photosData){
+  generatePhotoByTemplate(photosData);
+  showFilters();
+  filterPhotoByDefault(photosData);
+}
 
+export{photosData};

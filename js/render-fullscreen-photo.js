@@ -59,4 +59,5 @@ const drawFullScreenPicture = ({ url, likes, comments, description }) => {
   }
 };
 
+
 export { drawFullScreenPicture };
