@@ -11,7 +11,8 @@ const imgUploadHashtagElement =
   imgUploadFormElement.querySelector('.text__hashtags');
 const imgUploadCommentElement =
   imgUploadFormElement.querySelector('.text__description');
-
+const imgUploadButton =
+imgUploadFormElement.querySelector('.img-upload__submit');
 const pristine = new Pristine(
   imgUploadFormElement,
   {
@@ -56,10 +57,13 @@ function validateHashtag() {
   const hashTags = imgUploadHashtagElement.value
     .split(' ')
     .map((f) => f.trim());
-  if(!hashTags[0] && hashTags.length === 1){
-    return true;
+  const NewhashTags = [];
+  for(let i = 0 ; i < hashTags.length; i++){
+    if(hashTags[i]){
+      NewhashTags.push(hashTags[i].toLowerCase());
+    }
   }
-  return !validateHashTagRules.some((f) => f(hashTags));
+  return !validateHashTagRules.some((f) => f(NewhashTags));
 }
 
 const addHashtagValidator = () => {
@@ -81,8 +85,11 @@ const addComentValidator = () => {
 const submitForm = (e) => {
   e.preventDefault();
   const formInfo = new FormData(e.target);
+  imgUploadButton.disabled = true;
   if (pristine.validate()) {
     postData(addSuccessMessage,addErrorMessage,formInfo);
+  }else{
+    imgUploadButton.disabled = false;
   }
 };
 

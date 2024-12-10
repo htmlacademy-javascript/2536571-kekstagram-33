@@ -9,19 +9,24 @@ const Method = {
   POST: 'POST',
 };
 
-const load = async (route,errorMessage,method = Method.GET, body = null) => {
+const load = async (route,errorMessage,onSuccess,method = Method.GET, body = null) => {
   try {
     const response = await fetch(`${BASE_URL}${route}`, { method, body });
     if (response.ok) {
-      return await response.json();
+      if(method === 'GET'){
+        return onSuccess(await response.json());
+      }
+      onSuccess();
+    } else{
+      errorMessage();
     }
   } catch(e){
     errorMessage();
   }
 };
 
-const getData = async (errorMessage) => await load(ROUTE.GET_DATA,errorMessage);
+const getData = async (onSuccess,errorMessage) => await load(ROUTE.GET_DATA,errorMessage,onSuccess);
 
-const postData = async (onSuccess,errorMessage,body) => await load(ROUTE.SEND_DATA,onSuccess,errorMessage,Method.POST,body);
+const postData = async (onSuccess,errorMessage,body) => await load(ROUTE.SEND_DATA,errorMessage,onSuccess,Method.POST,body);
 
 export { getData, postData };

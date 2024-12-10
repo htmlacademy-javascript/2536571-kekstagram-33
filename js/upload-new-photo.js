@@ -23,6 +23,8 @@ const imgUploadHashtagElement =
   imgUploadFormElement.querySelector('.text__hashtags');
 const imgUploadCommentElement =
   imgUploadFormElement.querySelector('.text__description');
+const imgUploadButton = document.querySelector('.img-upload__submit');
+const effectPreviewElement = document.querySelectorAll('.effects__preview');
 
 function onEscKeydown(evt) {
   imgUploadCancelButton.removeEventListener('click', closeUploadPhoto);
@@ -69,7 +71,11 @@ const uploadNewPhoto = () =>{
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if(matches){
+    const imgUrl = URL.createObjectURL(file);
     imgUploadPreview.src = URL.createObjectURL(file);
+    effectPreviewElement.forEach((effectPreview)=>{
+      effectPreview.style.backgroundImage = `url(${imgUrl})`;
+    });
   }
 };
 
@@ -78,6 +84,7 @@ const openUploadPhoto = () => {
   imgUploadOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeydown);
+  imgUploadButton.disabled = false;
   addHandlerSubmitForm();
   resetScalingSettings();
   scaleImageHandler();
@@ -88,4 +95,4 @@ const openUploadPhoto = () => {
 imgUploadCancelButton.addEventListener('click', () => closeUploadPhoto());
 imgUploadInputElement.addEventListener('change', () => openUploadPhoto());
 
-export {removeEscKeydownHandler,addEscKeydownHandler};
+export {removeEscKeydownHandler,addEscKeydownHandler,closeUploadPhoto};
