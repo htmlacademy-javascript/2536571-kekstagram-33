@@ -57,9 +57,8 @@ function validateHashtag() {
   const hashTags = imgUploadHashtagElement.value
     .split(' ')
     .map((f) => f.trim());
-    console.log(hashTags)
-  let NewhashTags = [];
-  for(let i = 0 ; i  < hashTags.length; i++){
+  const NewhashTags = [];
+  for(let i = 0 ; i < hashTags.length; i++){
     if(hashTags[i]){
       NewhashTags.push(hashTags[i].toLowerCase());
     }

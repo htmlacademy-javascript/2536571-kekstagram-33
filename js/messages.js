@@ -25,9 +25,7 @@ const errorMessageGet = () => {
   setTimeout(() => newErrorMessage.remove(), 5000);
 };
 
-const onSuccessGet = (photos)=>{
-  return photos;
-}
+const onSuccessGet = (photos)=>photos;
 
 function closeSuccesMessage(successMessage) {
   successMessage.remove();

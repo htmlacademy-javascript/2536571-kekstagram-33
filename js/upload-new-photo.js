@@ -24,7 +24,7 @@ const imgUploadHashtagElement =
 const imgUploadCommentElement =
   imgUploadFormElement.querySelector('.text__description');
 const imgUploadButton = document.querySelector('.img-upload__submit');
-const effectPreviewElement = document.querySelectorAll('.effects__preview')
+const effectPreviewElement = document.querySelectorAll('.effects__preview');
 
 function onEscKeydown(evt) {
   imgUploadCancelButton.removeEventListener('click', closeUploadPhoto);
@@ -71,11 +71,11 @@ const uploadNewPhoto = () =>{
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if(matches){
-    const imgUrl =  URL.createObjectURL(file);
+    const imgUrl = URL.createObjectURL(file);
     imgUploadPreview.src = URL.createObjectURL(file);
-    effectPreviewElement.forEach(effectPreview=>{
+    effectPreviewElement.forEach((effectPreview)=>{
       effectPreview.style.backgroundImage = `url(${imgUrl})`;
-    })
+    });
   }
 };
 

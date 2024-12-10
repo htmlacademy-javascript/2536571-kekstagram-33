@@ -13,7 +13,7 @@ const load = async (route,errorMessage,onSuccess,method = Method.GET, body = nul
   try {
     const response = await fetch(`${BASE_URL}${route}`, { method, body });
     if (response.ok) {
-      if(method == 'GET'){
+      if(method === 'GET'){
         return onSuccess(await response.json());
       }
       onSuccess();

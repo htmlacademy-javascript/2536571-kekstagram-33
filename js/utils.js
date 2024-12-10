@@ -2,7 +2,6 @@ const RERENDER_DELAY = 500;
 
 const checkLength = (line, length) => line.length <= length;
 const fileLoader = document.querySelector('.img-upload__input');
-const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 const checkPalindrome = (word) => {
   const newWord = word.toLowerCase().replaceAll(' ', '');
