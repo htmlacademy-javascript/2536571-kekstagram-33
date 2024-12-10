@@ -1,17 +1,28 @@
-import { generatePhotoByTemplate } from './render-mini-photos';
-import { getRandomNumber } from './generate-photos-data';
-import { debounce } from './utils';
+import { generatePhotoByTemplate } from "./render-mini-photos";
+import { getRandomNumber } from "./generate-photos-data";
+import { debounce } from "./utils";
+
 const RANDOM_LENGTH = 10;
 
-const defaultButtonElememt = document.querySelector('#filter-default');
-const randomButtonElement = document.querySelector('#filter-random');
-const commentButtonElement = document.querySelector('#filter-discussed');
+const defaultButtonElememt = document.querySelector("#filter-default");
+const randomButtonElement = document.querySelector("#filter-random");
+const commentButtonElement = document.querySelector("#filter-discussed");
 
-const buttons = [defaultButtonElememt, randomButtonElement, commentButtonElement];
+const buttons = [
+  defaultButtonElememt,
+  randomButtonElement,
+  commentButtonElement,
+];
+
 let photosData;
 
+let debouncePhoto = debounce((posts)=>{
+  resetPhotos();
+  generatePhotoByTemplate(posts)
+})
+
 const resetPhotos = () => {
-  const photosElements = document.querySelectorAll('.picture');
+  const photosElements = document.querySelectorAll(".picture");
   for (const photo of photosElements) {
     photo.remove();
   }
@@ -20,21 +31,18 @@ const resetPhotos = () => {
 const addActiveCLass = (elemButton) => {
   const unactiveButtons = buttons.filter((f) => f !== elemButton);
   for (const button of unactiveButtons) {
-    button.classList.remove('img-filters__button--active');
+    button.classList.remove("img-filters__button--active");
   }
-  elemButton.classList.add('img-filters__button--active');
+  elemButton.classList.add("img-filters__button--active");
 };
 
 const filterPhotoByDefault = (posts) => {
   addActiveCLass(defaultButtonElememt);
-  resetPhotos();
-  photosData = posts;
-  generatePhotoByTemplate(posts);
+  debouncePhoto(posts)
 };
 
 const filterPhotoByRandom = (posts) => {
   addActiveCLass(randomButtonElement);
-  resetPhotos();
   const newPostsArr = [];
   for (let i = 0; i < RANDOM_LENGTH; i++) {
     const randomNumber = getRandomNumber(
@@ -44,30 +52,37 @@ const filterPhotoByRandom = (posts) => {
     );
     newPostsArr.push({ post: posts[randomNumber], number: randomNumber });
   }
-  generatePhotoByTemplate(newPostsArr.map((f) => f.post));
+  debouncePhoto( newPostsArr.map(f=>f.post))
 };
 
 const compareFunction = (a, b) => b.comments.length - a.comments.length;
+
 const filterPhotoByLikes = (posts) => {
   addActiveCLass(commentButtonElement);
-  resetPhotos();
   const newPostsArr = posts.slice();
   newPostsArr.sort(compareFunction);
 
-  generatePhotoByTemplate(newPostsArr);
+  debouncePhoto(newPostsArr)
+};
+const getPhotoData = (serverData) => {
+  photosData = serverData;
 };
 
-defaultButtonElememt.addEventListener(
-  'click',
-  debounce(() => filterPhotoByDefault(photosData))
-);
-randomButtonElement.addEventListener(
-  'click',
-  debounce(() => filterPhotoByRandom(photosData))
-);
-commentButtonElement.addEventListener(
-  'click',
-  debounce(() => filterPhotoByLikes(photosData))
+defaultButtonElememt.addEventListener("click", () =>
+  filterPhotoByDefault(photosData)
 );
 
-export { filterPhotoByDefault, filterPhotoByRandom, filterPhotoByLikes };
+randomButtonElement.addEventListener("click", () =>
+  filterPhotoByRandom(photosData)
+);
+
+commentButtonElement.addEventListener("click", () =>
+  filterPhotoByLikes(photosData)
+);
+
+export {
+  filterPhotoByDefault,
+  filterPhotoByRandom,
+  filterPhotoByLikes,
+  getPhotoData,
+};

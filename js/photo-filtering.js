@@ -1,7 +1,7 @@
 const imgUploadEffectElement = document.querySelector(
   '.img-upload__effect-level'
 );
-const imgUploadElement = document.querySelector('.img-upload__preview');
+const imgUploadElement = document.querySelector('.img-upload__preview img');
 const effectSliderElement = imgUploadEffectElement.querySelector(
   '.effect-level__slider'
 );

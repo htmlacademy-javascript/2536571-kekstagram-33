@@ -53,7 +53,6 @@ const clearInputElement = (input) => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const resetFile = ()=>fileLoader.setAttribute('value',null);
-const resetImg = () =>imgUploadPreview.setAttribute('src',' ');
 
 function debounce (callback) {
   let timeoutId;
@@ -63,22 +62,9 @@ function debounce (callback) {
   };
 }
 
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
-
-
 checkLength('проверяемая строка', 20);
 checkPalindrome('ДовОд');
 getNumber('2023 год');
 checkDurationMeeting('08:00', '17:30', '14:00', 90);
 
-export { clearPhotoElement, isEscapeKey ,clearInputElement,resetFile,debounce,throttle,resetImg};
+export { clearPhotoElement, isEscapeKey ,clearInputElement,resetFile,debounce};

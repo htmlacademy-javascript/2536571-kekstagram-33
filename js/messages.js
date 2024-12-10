@@ -1,10 +1,10 @@
-import { resetFile, isEscapeKey,resetImg } from './utils';
+import { resetFile, isEscapeKey } from './utils';
 import { resetForm } from './validate-text-image';
 import { resetScalingSettings } from './photo-scaling';
 import { resetFilterSettings } from './photo-filtering';
 import {
   removeEscKeydownHandler,
-  addEscKeydownHandler,
+  addEscKeydownHandler,closeUploadPhoto
 } from './upload-new-photo';
 
 const errorMessageElement = document
@@ -18,16 +18,21 @@ const errorPostMessageElement = document
   .querySelector('#error')
   .content.querySelector('.error');
 
+const imgUploadButton = document.querySelector('.img-upload__submit');
 const errorMessageGet = () => {
   const newErrorMessage = errorMessageElement.cloneNode(true);
   document.body.append(newErrorMessage);
   setTimeout(() => newErrorMessage.remove(), 5000);
 };
 
+const onSuccessGet = (photos)=>{
+  return photos;
+}
+
 function closeSuccesMessage(successMessage) {
-  document.removeEventListener('keydown', onEscKeydownSucces);
   successMessage.remove();
-  addEscKeydownHandler();
+  document.removeEventListener('keydown', onEscKeydownSucces);
+  closeUploadPhoto();
 }
 
 function onEscKeydownSucces (e) {
@@ -65,6 +70,7 @@ const errorMessagePost = () => {
 const closeErrorMessage = (error) => {
   error.remove();
   addEscKeydownHandler();
+  imgUploadButton.disabled = false;
   document.removeEventListener('keydown',onEscKeydownError);
 };
 
@@ -89,7 +95,6 @@ function errorMessageHandler (errorMessage) {
 }
 
 const resetFormData = () => {
-  resetImg();
   resetForm();
   resetFile();
   resetScalingSettings();
@@ -98,9 +103,10 @@ const resetFormData = () => {
 
 const addSuccessMessage = () => {
   resetFormData();
+  closeUploadPhoto();
   successMessagePost();
 };
 
 const addErrorMessage = () => errorMessagePost();
 
-export { addSuccessMessage,addErrorMessage, errorMessageGet,resetFormData };
+export { addSuccessMessage,addErrorMessage, errorMessageGet,resetFormData,onSuccessGet };
